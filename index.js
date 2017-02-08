@@ -10,8 +10,8 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.listen(80, function () {
-  console.log('Example app listening on port 80!');
+app.listen(process.env.PORT, function () {
+  console.log('Example app listening on port ' + process.env.PORT + '!');
 });
 
 let wss = new WebSocket({port: 8080});
