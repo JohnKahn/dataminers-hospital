@@ -18,7 +18,7 @@ document.body.appendChild(renderer.view);
 //Create a container object called the `stage`
 var stage = new PIXI.Container();
 
-var ws = new WebSocket('ws:localhost:8080');
+var ws = new WebSocket('ws:' + document.location.host + ':8080');
 ws.onopen = function(e) {
   PIXI.loader.add('img/sprite1.png').load(setup);
 };
