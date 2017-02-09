@@ -39,7 +39,7 @@ wss.on('connection', (ws) => {
     }
   });
 
-  startAddingSprites(ws);
+  // startAddingSprites(ws);
 
   console.log('New Client');
 });
