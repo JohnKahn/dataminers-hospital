@@ -20,8 +20,17 @@ let server = app.listen(port, function () {
 });
 
 let wss = new WebSocket({ server });
+let viewers = [];
 wss.on('connection', (ws) => {
   ws.on('message', (msg) => {
+    switch(msg) {
+      case: 'server',
+        viewers.push(ws);
+      case: 'addSprite',
+        viewers.forEach((viewer) => {
+          viewer.send('addSprite');
+        });
+    }
     console.log(msg);
     if (msg == 'addSprite') {
       ws.send('addSprite');

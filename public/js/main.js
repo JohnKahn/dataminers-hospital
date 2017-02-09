@@ -27,6 +27,7 @@ if (document.location.host === 'localhost') {
 
 ws.onopen = function(e) {
   PIXI.loader.add('img/sprite1.png').load(setup);
+  ws.send('server');
 };
 ws.onmessage = function(e) {
   console.log(e.data);
