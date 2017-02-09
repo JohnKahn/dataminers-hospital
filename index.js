@@ -24,12 +24,14 @@ let viewers = [];
 wss.on('connection', (ws) => {
   ws.on('message', (msg) => {
     switch(msg) {
-      case: 'server',
+      case 'server':
         viewers.push(ws);
-      case: 'addSprite',
+        break;
+      case 'addSprite':
         viewers.forEach((viewer) => {
           viewer.send('addSprite');
         });
+        break;
     }
     console.log(msg);
     if (msg == 'addSprite') {
