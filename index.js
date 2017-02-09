@@ -21,6 +21,7 @@ let server = app.listen(port, function () {
 
 let wss = new WebSocket({ server });
 let viewers = [];
+let deletedViewer = false;
 wss.on('connection', (ws) => {
   ws.on('message', (msg) => {
     switch(msg) {
@@ -28,9 +29,18 @@ wss.on('connection', (ws) => {
         viewers.push(ws);
         break;
       case 'addSprite':
-        viewers.forEach((viewer) => {
-          viewer.send('addSprite');
+        viewers.forEach((viewer, index) => {
+          try {
+            viewer.send('addSprite');
+          } catch(e) {
+            delete viewers[index];
+            deletedViewer = true;
+          }
         });
+
+        if (deletedViewer) { // Remove the undefined viewers
+          viewers = viewers.filter(function(viewer) { return viewer !== undefined; });
+        }
         break;
     }
     console.log(msg);
