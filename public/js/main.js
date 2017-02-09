@@ -54,13 +54,22 @@ function setup() {
 
 var sprites = [];
 
+var dt = 0;
+var lastTime = (new Date).getTime();
+function updateDt() {
+  var nowTime = (new Date).getTime();
+  dt = (nowTime - lastTime) / 1000.0;
+  lastTime = nowTime;
+}
+
 function update() {
   requestAnimationFrame(update);
+  updateDt();
 
   var deletedSprite = false;
   sprites.forEach(function(sprite, index, arr) {
-    sprite.x -= getRand(5, 7); // A little bit of wobble
-    sprite.y -= getRand(-1, 1); // A little bit of wobble
+    sprite.x -= getRand(250, 300) * dt; // A little bit of wobble
+    sprite.y -= getRand(-70, 70) * dt; // A little bit of wobble
     if (sprite.x < -sprite.width) {
       stage.removeChild(sprite);
       delete arr[index];

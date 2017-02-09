@@ -6,8 +6,12 @@ let app = express();
 
 app.use(express.static('public'));
 
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.get('/viewer', (req, res) => {
+  res.sendFile(path.join(__dirname, 'viewer.html'));
 });
 
 let port = process.env.PORT || 80;
