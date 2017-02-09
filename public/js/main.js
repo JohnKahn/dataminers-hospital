@@ -19,7 +19,7 @@ document.body.appendChild(renderer.view);
 var stage = new PIXI.Container();
 
 var ws = undefined;
-if (document.location.host === 'http://localhost/') {
+if (document.location.host === 'localhost') {
   ws = new WebSocket('ws:' + document.location.host);
 } else {
   ws = new WebSocket('wss:' + document.location.host);
