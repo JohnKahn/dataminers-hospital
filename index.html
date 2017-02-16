@@ -5,10 +5,63 @@
   <title>Hello World</title>
   <style>
     * { margin:0; padding:0; } /* to remove the top and left whitespace */
-    html, body { width:100%; height:100%; } /* just to be sure these are full screen*/
+    html, body { width:100%; height:100%; overflow: hidden; } /* just to be sure these are full screen*/
+    .vertical-range {
+      writing-mode: bt-lr; /* IE */
+      -webkit-appearance: slider-vertical; /* WebKit */
+      width: 100vw;
+      height: calc(100vh - 100px);
+      margin: 10px 0 0 0;
+      padding: 0 5px;
+    }
+    .text-center {
+      text-align: center;
+    }
+    button {
+      font-size: 24px;
+      margin: 5px 0 0 0;
+    }
   </style>
 </head>
 <body>
-  <script type="text/javascript" src="/js/controller.js"></script>
+  <input id="y-position-range" class="vertical-range" type="range" name="points" min="0" max="10000" value="5000" orient="vertical">
+  <div class="text-center">
+    <button id="add-sprite-btn">Add Sprite at Above Position</button>
+    <br />
+    <button id="add-sprite-rand-btn">Add Sprite at Random Position</button>
+  </div>
+
+  <script type="text/javascript">
+    var ws = undefined;
+    if (document.location.host === 'localhost') {
+      ws = new WebSocket('ws:' + document.location.host);
+    } else {
+      ws = new WebSocket('wss:' + document.location.host);
+    }
+
+    ws.onopen = function(e) {
+      document.getElementById('add-sprite-btn').addEventListener('click', function() {
+        var range = document.getElementById('y-position-range').value;
+        var max = document.getElementById('y-position-range').getAttribute('max');
+        var yPos = 1 - (range / max);
+
+        ws.send(JSON.stringify({
+          action: 'addSprite',
+          yPos: yPos,
+        }));
+      });
+
+      document.getElementById('add-sprite-rand-btn').addEventListener('click', function() {
+        ws.send(JSON.stringify({
+          action: 'addSprite',
+          yPos: Math.random(),
+        }));
+      });
+    };
+
+    ws.onmessage = function(e) {
+
+    }
+  </script>
 </body>
 </html>

@@ -27,12 +27,15 @@ if (document.location.host === 'localhost') {
 
 ws.onopen = function(e) {
   PIXI.loader.add('img/sprite1.png').load(setup);
-  ws.send('server');
+  ws.send(JSON.stringify({
+    action: 'server'
+  }));
 };
 ws.onmessage = function(e) {
   console.log(e.data);
-  if (e.data === 'addSprite') {
-    addSprite();
+  var obj = JSON.parse(e.data);
+  if (obj.action === 'addSprite') {
+    addSprite(obj.yPos * (clientHeight - 128));
   }
 }
 
@@ -85,12 +88,12 @@ function update() {
   renderer.render(stage);
 }
 
-function addSprite() {
+function addSprite(yPos) {
   var sprite = new PIXI.Sprite(PIXI.loader.resources["img/sprite1.png"].texture);
   sprite.height = 128;
   sprite.width = 128;
   sprite.x = clientWidth;
-  sprite.y = getRand(0, clientHeight - 128);
+  sprite.y = yPos;
   stage.addChild(sprite);
   sprites.push(sprite);
 }

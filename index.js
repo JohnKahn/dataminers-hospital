@@ -23,15 +23,16 @@ let wss = new WebSocket({ server });
 let viewers = [];
 let deletedViewer = false;
 wss.on('connection', (ws) => {
-  ws.on('message', (msg) => {
-    switch(msg) {
+  ws.on('message', (raw) => {
+    let obj = JSON.parse(raw);
+    switch(obj.action) {
       case 'server':
         viewers.push(ws);
         break;
       case 'addSprite':
         viewers.forEach((viewer, index) => {
           try {
-            viewer.send('addSprite');
+            viewer.send(raw);
           } catch(e) {
             delete viewers[index];
             deletedViewer = true;
@@ -43,26 +44,5 @@ wss.on('connection', (ws) => {
         }
         break;
     }
-    console.log(msg);
-    if (msg == 'addSprite') {
-      ws.send('addSprite');
-    }
   });
-
-  // startAddingSprites(ws);
-
-  console.log('New Client');
 });
-
-function startAddingSprites(ws) {
-  setTimeout(function () {
-    try {
-      ws.send('addSprite');
-      startAddingSprites(ws);
-    } catch(e) {}
-  }, getRand(100, 1000));
-}
-
-function getRand(min, max) {
-  return Math.random() * (max - min) + min;
-}
