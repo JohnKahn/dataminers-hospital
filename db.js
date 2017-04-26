@@ -70,7 +70,7 @@ exports.post = function(sql, vars, callback) {
       return;
     }
     
-    let query = conn.query(sql, queryData, function(err, results) {
+    let query = conn.query(sql, vars, function(err, results) {
       conn.query('UPDATE stats SET ?? = ?? + 1 WHERE ?? = ?', ['value', 'value', 'key', 'QUERY_COUNT'], function(err, results) {
         conn.release();
       });
