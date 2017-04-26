@@ -1,0 +1,59 @@
+nav {
+  margin: 0px !important;
+}
+
+body > .container {
+  margin-top: 30px;
+}
+
+.jumbotron.jumbo-img {
+  background:
+    linear-gradient(
+      hsla(208, 70%, 60%, 0.5), 
+      hsla(208, 70%, 60%, 0.5)
+    ),
+    url('../images/jumbo.jpeg');
+  background-size: cover;
+  background-position: center center;
+  height: 50vh;
+  /*margin-bottom: 0px;*/
+}
+
+tr[onclick] {
+  cursor: pointer;
+}
+
+.data-label {
+  font-weight: bold;
+  border-bottom: 1px solid black;
+  padding-bottom: 2px;
+}
+
+.data-elem {
+  font-size: 16px;
+  padding-left: 10px;
+}
+
+@media screen and (max-width: 767px) {
+  div.dataTables_length, div.dataTables_filter {
+    text-align: left !important;
+  }
+}
+
+.stat {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+
+  .stat-label {
+    text-align: center;
+    font-size: 2rem;
+    margin: 0;
+  }
+
+  .stat-data {
+    text-align: center;
+    font-size: 10rem;
+    margin: 0;
+  }
+}

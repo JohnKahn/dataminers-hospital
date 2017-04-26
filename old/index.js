@@ -14,7 +14,7 @@ app.get('/viewer', (req, res) => {
   res.sendFile(path.join(__dirname, 'viewer.html'));
 });
 
-let port = process.env.PORT || 80;
+let port = process.env.PORT || 3000;
 let server = app.listen(port, function () {
   console.log('Example app listening on port ' + port + '!');
 });

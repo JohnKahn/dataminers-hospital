@@ -4,13 +4,12 @@ PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 var clientWidth = document.documentElement.clientWidth;
 var clientHeight = document.documentElement.clientHeight;
 
-//Create the document.documentElement.clientHeight
 var renderer = PIXI.autoDetectRenderer(clientWidth, clientHeight);
 renderer.view.style.position = "absolute";
 renderer.view.style.display = "block";
 renderer.backgroundColor = 0x7ac3ff;
 renderer.autoResize = true;
-renderer.resize(window.innerWidth, window.innerHeight);
+renderer.resize(clientWidth, clientHeight);
 
 //Add the canvas to the HTML document
 document.body.appendChild(renderer.view);
@@ -19,14 +18,14 @@ document.body.appendChild(renderer.view);
 var stage = new PIXI.Container();
 
 var ws = undefined;
-if (document.location.host === 'localhost') {
-  ws = new WebSocket('ws:' + document.location.host);
-} else {
+if (document.location.host.includes('heroku')) {
   ws = new WebSocket('wss:' + document.location.host);
+} else {
+  ws = new WebSocket('ws:' + document.location.host);
 }
 
 ws.onopen = function(e) {
-  PIXI.loader.add('img/sprite1.png').load(setup);
+  PIXI.loader.add('img/sprite2.png').load(setup);
   ws.send(JSON.stringify({
     action: 'server'
   }));
@@ -72,8 +71,9 @@ function update() {
 
   var deletedSprite = false;
   sprites.forEach(function(sprite, index, arr) {
-    sprite.x -= getRand(250, 300) * dt; // A little bit of wobble
-    sprite.y -= getRand(-70, 70) * dt; // A little bit of wobble
+    // sprite.x -= getRand(250, 300) * dt; // A little bit of wobble
+    // sprite.y -= getRand(-70, 70) * dt; // A little bit of wobble
+    sprite.x -= 500 * dt;
     if (sprite.x < -sprite.width) {
       stage.removeChild(sprite);
       delete arr[index];
@@ -89,9 +89,9 @@ function update() {
 }
 
 function addSprite(yPos) {
-  var sprite = new PIXI.Sprite(PIXI.loader.resources["img/sprite1.png"].texture);
-  sprite.height = 128;
-  sprite.width = 128;
+  var sprite = new PIXI.Sprite(PIXI.loader.resources["img/sprite2.png"].texture);
+  sprite.height = 64;
+  sprite.width = 64;
   sprite.x = clientWidth;
   sprite.y = yPos;
   stage.addChild(sprite);

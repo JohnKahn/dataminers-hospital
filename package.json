@@ -1,24 +1,21 @@
 {
-  "name": "dataminers-hospital",
-  "version": "1.0.0",
-  "description": "A hospital application for CS4347.001, group DataMiners.",
-  "main": "index.js",
+  "name": "dataminershospital",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "start": "node index.js",
-    "watch": "nodemon"
+    "start": "SET DEBUG=dataminershospital:* & node ./bin/www",
+    "watch": "SET DEBUG=dataminershospital:* & nodemon"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/JohnKahn/dataminers-hospital.git"
-  },
-  "author": "DataMiners",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/JohnKahn/dataminers-hospital/issues"
-  },
-  "homepage": "https://github.com/JohnKahn/dataminers-hospital#readme",
   "dependencies": {
-    "express": "^4.14.1",
-    "ws": "^2.0.3"
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.3",
+    "express": "~4.15.2",
+    "hbs": "~4.0.1",
+    "lodash": "^4.17.4",
+    "morgan": "~1.8.1",
+    "mysql": "^2.13.0",
+    "serve-favicon": "~2.4.2",
+    "stylus": "0.54.5"
   }
 }

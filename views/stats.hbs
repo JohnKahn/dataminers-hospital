@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>Stats</h1>
+    </div>
+  </div>
+  <div class="row">
+    {{#each stats}}
+      <div class="col-md-4">
+        <div class="stat">
+          <div class="stat-label">{{friendly_key}}</div>
+          <div class="stat-data text-primary">{{value}}</div>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</div>
